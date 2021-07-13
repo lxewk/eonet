@@ -42,7 +42,7 @@ export default defineComponent({
   .header {
     position: relative;
     background-color: #3b495e;
-    color: #39bf78;
+    color: #228c53;
     padding: 1px;
     text-align: center;
     width: 100%;
