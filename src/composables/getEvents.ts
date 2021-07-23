@@ -1,8 +1,9 @@
 import { ref } from 'vue'
+import Event from '../types/Event'
 
 const getEvents = () => {
-  const events = ref([])
-  const error = ref(null)
+  const events = ref<Event>()
+  const error = ref<any>(null)
 
   const load = async () => {
     try {

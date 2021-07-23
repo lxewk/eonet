@@ -33,9 +33,7 @@ import { defineComponent } from 'vue'
 import getEvent from '../../composables/getEvent'
 import SourceDetails from '../Sources/SourceDetail.vue'
 
-
 export default defineComponent({
-  name: 'EventDetail',
   props: ['id'],
   components: { SourceDetails },
   setup(props) {
@@ -81,17 +79,5 @@ export default defineComponent({
   }
   .card-body a {
     cursor: pointer;
-  }
-  .loading {
-    display: center;
-    text-align: center;
-    font-weight: bolder;
-    color: #2c3e50;
-  }
-  .error {
-    display: center;
-    text-align: center;
-    font-weight: bolder;
-    color: #2c3e50;
   }
 </style>

@@ -2,7 +2,7 @@
 	<div class="event-list">
     <p>Sort by {{ sortTerm }}</p>
 		<ul>
-      <li v-for="eventsEntry in neonet_event.events" :key="eventsEntry.id">
+      <li v-for="eventsEntry in sortedCategory" :key="eventsEntry.id">
         <router-link :to="{ name: 'EventDetail', params: { id: eventsEntry.id }}">
           <h2>{{ eventsEntry.title }}</h2>
         </router-link>
@@ -12,7 +12,7 @@
           </div>
         </router-link>
         <div v-for="source in eventsEntry.sources" :key="source.id" class="event-source">
-          <SourceDetails :source_id="source.id" />
+          <SourceDetail :source_id="source.id" />
         </div>
       </li>
 		</ul>
@@ -21,47 +21,48 @@
 
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue'
-import SourceDetails from '../Sources/SourceDetails.vue'
+import { defineComponent, PropType, ref } from 'vue'
+import SourceDetail from '../Sources/SourceDetail.vue'
 import Event from '../../types/Event'
-import CategoryTerm from '../../types/CategoryTerm'
 import Category from '../../types/Category'
 
 export default defineComponent({
 	props: {
-    neonet_event: {
+    eonet_event: {
       required: true,
       type: Object as PropType<Event>
     },
     sortTerm: {
       required: true,
-      type: String as PropType<CategoryTerm>
+      type: String as PropType<string>
     },
   },
-	components: { SourceDetails },
+	components: { SourceDetail },
   setup(props) {
     const categoryObj = ref<Category[]>([])
-    
-    props.neonet_event.events.map(category => 
-      category.categories.map(title => {
+
+    const sortedCategory = () => {
+      props.eonet_event.events.map(category => 
+      category.categories.map(detail => {
         categoryObj.value.push({
-          id: title.id,
-          title: title.title
+          id: detail.id,
+          title: detail.title
+        })
+        categoryObj.value.sort((a, b) => {
+          let fa = a.id.includes(props.sortTerm), fb = b.id.includes(props.sortTerm)
+          return fa < fb ? 1 : -1
         })
       })
     )
+    }
+
+    sortedCategory()
     console.log(categoryObj)
-    
-    // the value of the title should be compared to sortTerm
-    const sortedTitle = computed(() => {
-      return [...categoryObj.value].sort((a: Category, b: Category) => {
-        return a[props.sortTerm] > b[props.sortTerm] ? 1 : -1
-      })
-                    
-    })
-    
-    
-    return { sortedTitle }
+
+    return { 
+      categoryObj,
+      sortedCategory,
+    }
   }
 
 })
@@ -105,3 +106,4 @@ export default defineComponent({
 
 
 </style>
+
