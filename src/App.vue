@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import {  defineComponent, ref } from 'vue';
+import {  defineComponent, ref } from 'vue'
 import Sitemap from './components/Sitemap.vue'
 
 export default defineComponent({
@@ -38,7 +38,6 @@ export default defineComponent({
       }
     }
   },
-  
   
   
 });
@@ -79,7 +78,6 @@ export default defineComponent({
     left: 25px;
     text-decoration: underline;
   }
-
   #nav {
     text-align: left;
     color: #2c3e50;
@@ -87,7 +85,6 @@ export default defineComponent({
     background: #bdc9db;
     border-radius: 4px;
   }
-
   #nav a {
     font-weight: bold;
     color: #2c3e50;
@@ -95,16 +92,15 @@ export default defineComponent({
     padding: 10px;
     border-radius: 4px;
   }
-
   #nav a.router-link-exact-active {
     color: white;
     background: #5e17d1;
   }
-
   .sticky {
   position: fixed;
   top: 0;
   width: 100%;
 }
+
 
 </style>

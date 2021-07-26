@@ -1,8 +1,8 @@
 <template>
 	<div class="event-list">
     <p>Sort by {{ sortTerm }}</p>
-		<ul>
-      <li v-for="eventsEntry in sortedCategory" :key="eventsEntry.id">
+		<transition-group tag="ul" name="list" mode="out-in" appear>
+      <li v-for="eventsEntry in eonet_event.events" :key="eventsEntry.id">
         <router-link :to="{ name: 'EventDetail', params: { id: eventsEntry.id }}">
           <h2>{{ eventsEntry.title }}</h2>
         </router-link>
@@ -15,16 +15,31 @@
           <SourceDetail :source_id="source.id" />
         </div>
       </li>
-		</ul>
+		</transition-group>
 	</div>
 </template>
 
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import SourceDetail from '../Sources/SourceDetail.vue'
 import Event from '../../types/Event'
+import Events from '../../types/Events'
 import Category from '../../types/Category'
+
+type EventItem = {
+  title: string,
+  description: string,
+  link: string,
+  events: Events[]
+}
+
+const defaultPlaceholder = {
+  title: "default",
+  description: "",
+  link: "",
+  events: []
+} as EventItem
 
 export default defineComponent({
 	props: {
@@ -39,29 +54,20 @@ export default defineComponent({
   },
 	components: { SourceDetail },
   setup(props) {
-    const categoryObj = ref<Category[]>([])
+    console.log(props.eonet_event)
 
-    const sortedCategory = () => {
-      props.eonet_event.events.map(category => 
-      category.categories.map(detail => {
-        categoryObj.value.push({
-          id: detail.id,
-          title: detail.title
-        })
-        categoryObj.value.sort((a, b) => {
-          let fa = a.id.includes(props.sortTerm), fb = b.id.includes(props.sortTerm)
-          return fa < fb ? 1 : -1
-        })
-      })
+    const sortedCategory = props.eonet_event.events.forEach(
+      c => c.categories.sort((a: Category, b: Category) => {
+        let fa = a.id.includes(props.sortTerm), fb = b.id.includes(props.sortTerm)
+        return fa < fb ? 1 : -1
+      }),
+      defaultPlaceholder
     )
-    }
 
-    sortedCategory()
-    console.log(categoryObj)
+    console.log(sortedCategory)
 
     return { 
-      categoryObj,
-      sortedCategory,
+      sortedCategory, 
     }
   }
 
@@ -100,10 +106,16 @@ export default defineComponent({
 .event-source {
 	display: flex;
 }
-.list-move {
-  transition: all 1s;
+.list-enter-from {
+  opacity: 0;
+  transform: scale(0.6);
 }
-
-
+.list-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+.list-enter-active {
+  transition: all 0.6s ease;
+}
 </style>
 

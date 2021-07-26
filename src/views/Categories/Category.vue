@@ -1,10 +1,12 @@
 <template>
 	<div class="category">
-		<div v-if="error" class="error">{{ error }}</div>
-		<div v-if="neonet_category.categories.length">
-      <CategoryList :neonet_category="neonet_category" />
-    </div>
-    <div v-else class="loading">Loading...</div>
+    <transition name="switch" mode="out-in" appear>
+      <div v-if="error" class="error">{{ error }}</div>
+      <div v-else-if="neonet_category.categories.length">
+        <CategoryList :neonet_category="neonet_category" />
+      </div>
+      <div v-else class="loading">Loading...</div>
+    </transition>
 	</div>
 </template>
 
@@ -48,17 +50,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
-	.loading {
-    display: center;
-    text-align: center;
-    font-weight: bolder;
-    color: #2c3e50;
+  .switch-enter-from,
+  .switch-enter-to {
+    opacity: 0;
+    transform: translateY(20px)
   }
-  .error {
-    display: center;
-    text-align: center;
-    font-weight: bolder;
-    color: #2c3e50;
+  .switch-enter-to,
+  .switch-leave-from {
+    opacity: 1;
+    transform: translateY(0)
+  }
+  .switch-enter-active,
+  .switch-leave-active {
+    transition: all 0.5s ease;
   }
 
 </style>

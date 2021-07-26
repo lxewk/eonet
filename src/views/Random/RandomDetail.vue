@@ -1,4 +1,5 @@
 <template>
+  <transition name="random-detail" appear>
     <div class="container">
       <div class="heading">
         <div v-if="error" class="error">{{ error }}</div>
@@ -25,7 +26,8 @@
         <div v-else class="loading">
           <p>Loading event details...</p>
         </div>
-    </div>   
+    </div> 
+  </transition>
 </template>
 
 <script lang="ts">

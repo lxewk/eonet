@@ -1,9 +1,20 @@
 <template>
-  <div v-if="noEvent" class="error">{{ noEvent }}</div>
-  <div v-for="id in matchingIndex" :key="id.id" class="random-list">
-    <div>
-      <RandomDetail :id="id.id" />
+  <transition name="fade">
+    <div v-if="showEvents">
+      <h2>Another Random Detail</h2>
     </div>
+  </transition>
+  <div>
+    <transition name="switch" mode="out-in">
+      <div v-if="noEvent" class="error">{{ noEvent }}</div>
+      <div v-else>
+        <transition-group tag="div" name="detail" appear>
+          <div v-for="id in matchingIndex" :key="id.id" class="random-list">
+            <RandomDetail :id="id.id" />
+          </div>
+        </transition-group>
+      </div>
+    </transition>
     <div>
       <button @click="handleClick" class="btn">another event</button>
     </div>
@@ -28,6 +39,7 @@ export default defineComponent({
     const eventObj = ref<Events[]>([])
     const matchingIndex = ref<Events[]>([])
     const noEvent = ref<string>('')
+    const showEvents = ref(false)
 
     props.eonet_event.events.map(event => {
       eventObj.value.push({
@@ -53,9 +65,14 @@ export default defineComponent({
     }
 
     eventIndex()
+
+    const handleShowEvents = () => {
+      showEvents.value = !showEvents.value
+    }
     
     const handleClick = () => {
       eventIndex()
+      handleShowEvents()
     }
 
     onMounted(() => console.log('RandomList mounted'))
@@ -66,6 +83,7 @@ export default defineComponent({
       eventObj,
       matchingIndex, 
       noEvent, 
+      showEvents,
       handleClick 
     }
   }
@@ -81,5 +99,41 @@ export default defineComponent({
     color: white;
     padding: 16px;
   }
+  .fade-enter-from {
+    opacity: 0;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 2s ease;
+  }
+  .fade-leave-to {
+    opacity: 0;
+  }
+  .detail-enter-from {
+  opacity: 0;
+  transform: scale(0.6);
+  }
+  .detail-enter-to {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .detail-enter-active {
+    transition: all 0.8s ease;
+  }
+  .switch-enter-from,
+  .switch-enter-to {
+    opacity: 0;
+    transform: translateY(20px)
+  }
+  .switch-enter-to,
+  .switch-leave-from {
+    opacity: 1;
+    transform: translateY(0)
+  }
+  .switch-enter-active,
+  .switch-leave-active {
+    transition: all 0.5s ease;
+  }
+   
 </style>
 

@@ -20,11 +20,11 @@
         </div>
       </div>
     </header>
-    <div v-if="error" class="error">{{ error }}</div>
-    <div v-if="eonet_event.events.length">
-      <EventList :eonet_event="eonet_event" :sortTerm="sortTerm" />
-    </div>
-    <div v-else class="loading">Loading...</div>
+      <div v-if="error" class="error">{{ error }}</div>
+      <div v-if="eonet_event.events.length">
+        <EventList :eonet_event="eonet_event" :sortTerm="sortTerm" />
+      </div>
+      <div v-else class="loading">Loading...</div>
   </div>
 </template>
 
@@ -52,7 +52,8 @@ export default defineComponent({
   name: 'Home',
   components: { EventList },
   setup() {
-		const { result: eonet_event, reload, isLoading, error } = useUrlQuery('https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit=25', defaultPlaceholder)
+		const { result: eonet_event, reload, isLoading, error } = 
+      useUrlQuery('https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit=25', defaultPlaceholder)
 
     reload()
 
@@ -80,21 +81,17 @@ export default defineComponent({
     max-width: 960px;
     margin: 20px auto;
   }
-   
   header {
     text-align: right;
   } 
-
   .dropbtn {
     color: white;
     padding: 16px;
   }
-
   .dropdown {
     position: relative;
     display: inline-block;
   }
-
   .dropdown-content {
     display: none;
     position: absolute;
@@ -103,7 +100,6 @@ export default defineComponent({
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
-
   .dropdown-content span {
     color: #2c3e50;
     padding: 12px 16px;
@@ -111,7 +107,6 @@ export default defineComponent({
     display: block;
     cursor: pointer;
   }
-
   .dropdown-content span:hover {background-color: #ddd;}
 
   .dropdown:hover .dropdown-content {display: block;}
