@@ -1,14 +1,9 @@
 <template>
   <div class="header">
-    <img src="./assets/Homepage-background.jpeg" alt="Earth Observatory Natural Event Tracker">
-    <h2>Earth Observatory Natural Event Tracker<br />( Nasa )</h2>
+    <HeaderPict />
   </div>
   <div id="nav">
-    <router-link to="/">Home</router-link> 
-    <router-link to="/category">Category</router-link> 
-    <router-link to="/source">Sources</router-link> 
-    <router-link to="/random">Random Event</router-link>  
-    <a href="https://worldview.earthdata.nasa.gov/">Worldview</a>
+    <Navbar />
   </div>
   <router-view/>
   <div class="footer">
@@ -17,12 +12,15 @@
 </template>
 
 <script lang="ts">
-import {  defineComponent, ref } from 'vue'
+import {  defineComponent } from 'vue'
 import Sitemap from './components/Sitemap.vue'
+import Navbar from './components/Navbar.vue'
+import HeaderPict from './components/HeaderPict.vue'
+
 
 export default defineComponent({
   name: 'App',
-  components: { Sitemap },
+  components: { Sitemap, Navbar, HeaderPict },
   mounted() {
     window.onscroll = () => {handleSticky()}
 
@@ -38,8 +36,6 @@ export default defineComponent({
       }
     }
   },
-  
-  
 });
 </script>
 
@@ -55,11 +51,7 @@ export default defineComponent({
     border-radius: 4px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-  .header img {
-    width: 100%;
-    height: 100%;
-    border-radius: 4px;
-  }
+
   .footer {
     position: relative;
     background-color: #bdc9db;
@@ -72,35 +64,20 @@ export default defineComponent({
     border-radius: 4px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-  .header h2 {
-    position: absolute;
-    top: 10px;
-    left: 25px;
-    text-decoration: underline;
-  }
+
   #nav {
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #2c3e50;
-    padding: 30px;
+    padding: 20px;
     background: #bdc9db;
     border-radius: 4px;
   }
-  #nav a {
-    font-weight: bold;
-    color: #2c3e50;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  #nav a.router-link-exact-active {
-    color: white;
-    background: #5e17d1;
-  }
+  
   .sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-
+    position: fixed;
+    top: 0;
+    width: 95%;
+  }
 </style>

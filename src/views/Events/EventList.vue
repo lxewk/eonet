@@ -21,25 +21,13 @@
 
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import SourceDetail from '../Sources/SourceDetail.vue'
 import Event from '../../types/Event'
-import Events from '../../types/Events'
+// import Events from '../../types/Events'
+
 import Category from '../../types/Category'
 
-type EventItem = {
-  title: string,
-  description: string,
-  link: string,
-  events: Events[]
-}
-
-const defaultPlaceholder = {
-  title: "default",
-  description: "",
-  link: "",
-  events: []
-} as EventItem
 
 export default defineComponent({
 	props: {
@@ -56,18 +44,19 @@ export default defineComponent({
   setup(props) {
     console.log(props.eonet_event)
 
-    const sortedCategory = props.eonet_event.events.forEach(
-      c => c.categories.sort((a: Category, b: Category) => {
-        let fa = a.id.includes(props.sortTerm), fb = b.id.includes(props.sortTerm)
-        return fa < fb ? 1 : -1
-      }),
-      defaultPlaceholder
+    const sortedCategory = computed(() => {
+      return [...props.eonet_event.events].forEach(c => c.categories
+        .slice()
+        .sort((a: Category, b: Category) => {
+          let fa = a.id.includes(props.sortTerm), fb = b.id.includes(props.sortTerm)
+          return fa < fb ? 1 : -1
+        }) 
+      )}
     )
-
-    console.log(sortedCategory)
+    console.log(props.eonet_event)
 
     return { 
-      sortedCategory, 
+       sortedCategory
     }
   }
 

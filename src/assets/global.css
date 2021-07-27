@@ -30,3 +30,11 @@ a {
   font-weight: bolder;
   color: #2c3e50;
 }
+
+@media (max-width: 600px) {
+  button {
+    padding: 8px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+}
