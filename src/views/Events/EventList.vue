@@ -1,17 +1,17 @@
 <template>
 	<div class="event-list">
-    <p>Sort by {{ sortTerm }}</p>
 		<transition-group tag="ul" name="list" mode="out-in" appear>
-      <li v-for="eventsEntry in eonet_event.events" :key="eventsEntry.id">
-        <router-link :to="{ name: 'EventDetail', params: { id: eventsEntry.id }}">
-          <h2>{{ eventsEntry.title }}</h2>
+      <li v-for="eventsEntry in sorting" :key="eventsEntry.id">
+        <router-link :to="{ name: 'EventDetails', params: { id: eventsEntry.id }}">
+          <h2 @click.self="showDetail('Wave')">{{ eventsEntry.title }}</h2>
         </router-link>
         <router-link :to="{ name: 'Category' }">
           <div v-for="category in eventsEntry.categories" :key="category.id"  class="event-categorie">
-            <h3>Category: {{ category.title }}</h3>	
+            <h3>Category: <span>{{ category.title }}</span></h3> 	
           </div>
         </router-link>
         <div v-for="source in eventsEntry.sources" :key="source.id" class="event-source">
+          <h3>Source of information:</h3>
           <SourceDetail :source_id="source.id" />
         </div>
       </li>
@@ -24,10 +24,7 @@
 import { defineComponent, PropType, computed } from 'vue'
 import SourceDetail from '../Sources/SourceDetail.vue'
 import Event from '../../types/Event'
-// import Events from '../../types/Events'
-
-import Category from '../../types/Category'
-
+import Events from '../../types/Events'
 
 export default defineComponent({
 	props: {
@@ -41,29 +38,30 @@ export default defineComponent({
     },
   },
 	components: { SourceDetail },
-  setup(props) {
-    console.log(props.eonet_event)
+  emits: ['handleWorldClick'],
+  setup(props, context) {
+    const sorting = computed(() => {
+      return [...props.eonet_event.events].sort((a: Events, b: Events) => {
+        let fa = a.categories.filter(c => {c.id.includes(props.sortTerm)}),
+        fb = b.categories.filter(d => d.id.includes(props.sortTerm))
+        return fa < fb ? 1 : -1
+      })
+    })
 
-    const sortedCategory = computed(() => {
-      return [...props.eonet_event.events].forEach(c => c.categories
-        .slice()
-        .sort((a: Category, b: Category) => {
-          let fa = a.id.includes(props.sortTerm), fb = b.id.includes(props.sortTerm)
-          return fa < fb ? 1 : -1
-        }) 
-      )}
-    )
-    console.log(props.eonet_event)
-
+    const showDetail = (value: string) => {
+      context.emit('handleWorldClick', value)
+    }
+    
     return { 
-       sortedCategory
+      sorting,
+      showDetail
     }
   }
 
 })
 </script>
 
-<style scoped>
+<style>
 .event-list {
 	max-width: 960px;
 	margin: 40px auto;
@@ -77,14 +75,17 @@ export default defineComponent({
 	padding: 16px;
 	margin: 16px;
 	border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .event-list h2 {
 	margin: 0 0 10px;
 	text-transform: capitalize;
-	color: #39bf78;
+	color: #2295b4;
+  cursor: pointer;
 }
 .event-list h3 {
 	color: #2c3e50;
+  cursor: pointer;
 }
 .event-list a {
   text-decoration: none;
@@ -92,8 +93,12 @@ export default defineComponent({
 .event-categorie {
 	display: flex;
 }
+.event-categorie h3 span {
+  color: #5e17d1;
+}
 .event-source {
 	display: flex;
+  flex-direction: column;
 }
 .list-enter-from {
   opacity: 0;

@@ -7,7 +7,7 @@
 			</li>
 		</ul>
 	</div>
-	<div v-else class="loading">Loading source</div>  
+	<div v-else class="loading">Loading source...</div>  
 </template>
 
 <script lang="ts">
@@ -33,7 +33,8 @@ const defaultPlaceholder = {
 export default defineComponent({
 	props: [ 'source_id'],  
 	setup() {
-		const { result: eonet_source, reload, isLoading, error } = useUrlQuery('https://eonet.sci.gsfc.nasa.gov/api/v3/sources', defaultPlaceholder)
+		const { result: eonet_source, reload, isLoading, error } = 
+      useUrlQuery('https://eonet.sci.gsfc.nasa.gov/api/v3/sources', defaultPlaceholder)
 
 		reload()
 
@@ -47,21 +48,10 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-	.src-detail a {
-		color: #5e17d1;
-		text-decoration: none;
-	}
-	.loading {
-		display: center;
-		text-align: center;
-		font-weight: bolder;
-		color: #2c3e50;
-	}
-	.error {
-		display: center;
-		text-align: center;
-		font-weight: bolder;
-		color: #2c3e50;
-	}
+<style>
+  .src-detail li {
+    cursor: pointer;
+  }
 </style>
+
+

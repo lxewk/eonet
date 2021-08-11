@@ -1,27 +1,27 @@
 <template>
-  <div class="picture">
-    <img src="../assets/pictures/Homepage-background.jpeg" alt="Beam in grey clouds">
-    <h2>{{ title }}<br />{{ nasaLogo }}</h2>
+  <div v-if="pageImg" class="picture">
+    <img :src="pageImg.img" :alt="pageImg.alt">
+      <h2>{{ title }}</h2>
   </div>
 </template>
 
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import Image from '../types/Images'
 
 export default defineComponent({
-  data() {
+  props: {
+    pageImg: {
+      required: true,
+      type: Object as PropType<Image>
+    }
+  },
+  setup() {
+    const title = 'Earth Observatory Natural Event Tracker - NASA'
+    
     return {
-      title: 'Earth Observatory Natural Event Tracker',
-      nasaLogo: 'Nasa',
-      images: [
-        { element: 'Cloud', img: '../assets/pictures/Homepage-background.jpeg', alt: 'Grey clouds with beam', isActivePage: false },
-        { element: 'Fire', img: '../assets/pictures/smokeWithCar.jpeg', alt: 'Forrest fire', isActivePage: false },
-        { element: 'Wave', img: '../assets/pictures/seaWave.jpeg', alt: 'Sea wave', isActivePage: false },
-        { element: 'Tornado', img: '../assets/pictures/tornadoBlueSky.jpeg', alt: 'Tornado', isActivePage: false },
-        { element: 'Hurricane', img: '../assets/pictures/hurricane.jpeg', alt: 'Hurricane', isActivePage: false },
-        { element: 'Flooding', img: '../assets/pictures/floodingVillage.jpeg', alt: 'Flooded town', isActivePage: false },
-      ]
+      title
     }
   }
 })
@@ -35,15 +35,27 @@ export default defineComponent({
     border-radius: 4px;
   }
   .header .picture img {
+    display: block;
     width: 100%;
-    height: 100%;
+    height: 400px;
+    object-fit: cover;
     border-radius: 4px;
+    position: relative;
+    z-index: 0;
   }
   .header h2 {
     position: absolute;
     top: 10px;
-    left: 25px;
-    text-decoration: underline;
+    left: 10px;
+    color: #cedaeb;
+    background: linear-gradient(to right,#2295b4,#07252d) ;
+    letter-spacing: 5px;
+    margin: 5px;
+    padding: 4px 4px 15px 4px;
+    border-radius: 4px;
+    -webkit-box-reflect: below 1px linear-gradient(transparent,#0004);
+    outline: none;
   }
+  
 
 </style>

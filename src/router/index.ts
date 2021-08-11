@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
+import Curation from '../views/Curation.vue'
 import Category from '../views/Categories/Category.vue'
 import Random from '../views/Random/Random.vue'
-import RandomDetail from '../views/Random/RandomDetail.vue'
 import Source from '../views/Sources/Source.vue'
 import EventDetail from '../views/Events/EventDetails.vue'
 import NotFound from '../components/NotFound.vue'
 import Sitemap from '../components/Sitemap.vue'
+import Search from '../components/Search.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -31,8 +32,13 @@ const routes: Array<RouteRecordRaw> = [
     component: Source
   },
   {
+    path: '/curation',
+    name: 'Curation',
+    component: Curation
+  },
+  {
     path: '/event/:id',
-    name: 'EventDetail',
+    name: 'EventDetails',
     component: EventDetail,
     props: true
   },
@@ -40,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/sitemap',
     name: 'Sitemap',
     component: Sitemap
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
   // catchall 404
   {

@@ -1,36 +1,53 @@
 <template>
   <div class="home">
     <header>
-      <div class="dropdown">
-        <button class="dropbtn">sort by Category</button>
-        <div class="dropdown-content">
-          <span @click="handleClick('drought')">Drought</span>
-          <span @click="handleClick('dustHaze')">Dust And Haze</span>
-          <span @click="handleClick('earthquakes')">Earthquakes</span>
-          <span @click="handleClick('floods')">Floods</span>
-          <span @click="handleClick('landslides')">Landslides</span>
-          <span @click="handleClick('manmade')">Manmade</span>
-          <span @click="handleClick('seaLakeIce')">Sea and Lake Ice</span>
-          <span @click="handleClick('severeStorms')">Severe Storms</span>
-          <span @click="handleClick('snow')">Snow</span>
-          <span @click="handleClick('tempExtremes')">Temperature Extremes</span>
-          <span @click="handleClick('volcanoes')">Volcanoes</span>
-          <span @click="handleClick('waterColor')">Water Color</span>
-          <span @click="handleClick('wildfires')">Wildfires</span>
-        </div>
+      <div class="introduction">
+        <p>NASA's Earth Observatory Natural Event Tracker - EONET - is a prototype web service with the goal of:</p>
+        <ol>
+          <li><p>Providing a curated source of continuously updated natural event metadata.</p></li>
+          <li><p>Providing a service that links those natural events to thematically-related web service-enabled image sources (e.g., via WMS, WMTS, etc.).</p></li>
+          <ul>
+            <li><h5>Development of EONET began in 2015 and has been supported by the following:</h5></li>
+            <li><a href="https://earthdata.nasa.gov/">Earth Science Data Systems Program (ESDS)</a></li>
+            <li><a href="https://earthobservatory.nasa.gov/">NASA Earth Observatory</a></li>
+          </ul>
+        </ol> 
       </div>
     </header>
-      <div v-if="error" class="error">{{ error }}</div>
-      <div v-if="eonet_event.events.length">
-        <EventList :eonet_event="eonet_event" :sortTerm="sortTerm" />
+    <div v-if="error" class="error">{{ error }}</div>
+    <div v-if="eonet_event.events.length">
+      <div class="btn-cnt">
+        <div class="dropdown">
+          <button class="dropbtn">sort by Category</button>
+          <div class="dropdown-content">
+            <span @click="handleClick('drought')">Drought</span>
+            <span @click="handleClick('dustHaze')">Dust And Haze</span>
+            <span @click="handleClick('earthquakes')">Earthquakes</span>
+            <span @click="handleClick('floods')">Floods</span>
+            <span @click="handleClick('landslides')">Landslides</span>
+            <span @click="handleClick('manmade')">Manmade</span>
+            <span @click="handleClick('seaLakeIce')">Sea and Lake Ice</span>
+            <span @click="handleClick('severeStorms')">Severe Storms</span>
+            <span @click="handleClick('snow')">Snow</span>
+            <span @click="handleClick('tempExtremes')">Temperature Extremes</span>
+            <span @click="handleClick('volcanoes')">Volcanoes</span>
+            <span @click="handleClick('waterColor')">Water Color</span>
+            <span @click="handleClick('wildfires')">Wildfires</span>
+          </div>
+        </div>
       </div>
-      <div v-else class="loading">Loading...</div>
+      <EventList 
+        :eonet_event="eonet_event" 
+        :sortTerm="sortTerm" 
+        @handleWorldClick="handleWorldClick" />
+    </div>
+    <div v-else class="loading">Loading...</div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import EventList from './Events/EventList.vue'
+import EventList from './Events/EventList.vue' 
 import useUrlQuery from '../composables/urlListener'
 import Events from '../types/Events'
 
@@ -42,7 +59,7 @@ type EventItem = {
 }
 
 const defaultPlaceholder = {
-  title: "default",
+  title: "home",
   description: "",
   link: "",
   events: []
@@ -51,9 +68,10 @@ const defaultPlaceholder = {
 export default defineComponent({
   name: 'Home',
   components: { EventList },
-  setup() {
+  emits: ['worldViewClick'],
+  setup(props, context) {
 		const { result: eonet_event, reload, isLoading, error } = 
-      useUrlQuery('https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit=25', defaultPlaceholder)
+      useUrlQuery('https://eonet.sci.gsfc.nasa.gov/api/v3/events?limit=10', defaultPlaceholder)
 
     reload()
 
@@ -63,6 +81,10 @@ export default defineComponent({
       sortTerm.value = term
     }
 
+    const handleWorldClick = (v: string) => {
+      context.emit('worldViewClick', v)
+    }
+
 		return {
 			eonet_event,
 			reload,
@@ -70,27 +92,36 @@ export default defineComponent({
 			error,
       handleClick,
       sortTerm,
+      handleWorldClick
 		}	
 	}
 })
 </script>
 
 
-<style scoped>
+<style>
   .home {
-    max-width: 960px;
-    margin: 20px auto;
+    width: 100%;
+    margin: 50px auto;
   }
-  header {
+  
+  .home .introduction ol {
+    margin: 10px;
+  }
+  .home .introduction ul {
+    list-style-type: none;
+  }
+  .home .btn-cnt {
     text-align: right;
+    width: 90%;
   } 
-  .dropbtn {
-    color: white;
-    padding: 16px;
-  }
   .dropdown {
     position: relative;
     display: inline-block;
+  }
+  .dropbtn {
+    color: white;
+    padding: 16px;
   }
   .dropdown-content {
     display: none;

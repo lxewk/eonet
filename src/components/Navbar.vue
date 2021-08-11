@@ -1,11 +1,13 @@
 <template>
   <div class="navbar-links">
     <ul>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/category">Category</router-link></li>
-      <li><router-link to="/source">Sources</router-link></li>
-      <li><router-link to="/random">Random Event</router-link></li>
-      <li><a href="https://worldview.earthdata.nasa.gov/">Worldview</a></li>
+      <li @click="sendObj(0)"><router-link to="/">Home</router-link></li>
+      <li @click="sendObj(1)"><router-link to="/category">Category</router-link></li>
+      <li @click="sendObj(2)"><router-link to="/source">Sources</router-link></li>
+      <li @click="sendObj(3)"><router-link to="/random">Random Event</router-link></li>
+      <li @click="sendObj(4)"><router-link to="/curation">Curation</router-link></li>
+      <li @click="sendObj(5)"><router-link to="/search">Search</router-link></li>
+      <li v-show="showWorldview" id="worldview"><a href="https://worldview.earthdata.nasa.gov/">Worldview</a></li>
     </ul>
   </div>
   <a href="#" class="toggle-btn" @click="toggleButton">
@@ -16,25 +18,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  data() {
-    return {
-      showNavbar: false,
-    }
-  },
-  methods: {
-    toggleButton() {
+  props: ['images', 'showWorldview'],
+  emits: ['handleClick'],
+  setup(props, context) {
+    const showNavbar = ref(false)
+    
+    const toggleButton = () => {
       const navbarLinks = document.getElementsByClassName('navbar-links')[0]
-      this.showNavbar = !this.showNavbar
+      showNavbar.value = !showNavbar.value
       navbarLinks.classList.toggle('active')
+    }
+
+    const sendObj = (index: number) => {
+      context.emit('handleClick', props.images[index])
+    }
+
+    return {
+      toggleButton,
+      sendObj,
     }
   }
 })
 </script>
 
-<style scoped>
+<style>
   #nav .navbar-links ul {
     margin: 0;
     padding: 0;
@@ -54,6 +64,9 @@ export default defineComponent({
   #nav .navbar-links li a.router-link-exact-active {
     color: white;
     background: #5e17d1;
+  }
+  #worldview {
+    text-transform: uppercase;
   }
   #nav .toggle-btn {
     position: absolute;

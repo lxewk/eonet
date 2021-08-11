@@ -1,4 +1,15 @@
 <template>
+  <div class="event-detail">
+    <header>
+      <div class="introduction">
+        <p>
+          With NASA ESDIS’ <span><b>Worldview</b></span>, users can browse the entire globe daily and look for natural events as they occur.  
+        </p>
+        <p>
+          Regularly spotted storms in the tropics, dust storms over deserts, forest fires in the summers.<br> These events are constantly occurring, and NASA NRT imagery can represent them all using a variety of different data parameters.
+        </p>
+      </div>
+    </header>
     <div class="container">
       <div class="heading">
         <div v-if="error" class="error">{{ error }}</div>
@@ -25,7 +36,8 @@
         <div v-else class="loading">
           <p>Loading event details...</p>
         </div>
-    </div>   
+    </div> 
+  </div>   
 </template>
 
 <script lang="ts">
@@ -35,7 +47,7 @@ import SourceDetails from '../Sources/SourceDetail.vue'
 
 
 export default defineComponent({
-  name: 'EventDetail',
+  name: 'EventDetails',
   props: ['id'],
   components: { SourceDetails },
   setup(props) {
@@ -50,6 +62,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+  .event-detail {
+    width: 100%;
+    margin: 50px auto;
+  }
   .container {
     width: 90%;
     margin: 50px auto;
@@ -70,8 +86,8 @@ export default defineComponent({
   .card-header {
     text-align: left;
     padding: 20px 10px;
-    background: linear-gradient(to right, #46c480, #228c53);
-    color: #2c3e50;
+    background: linear-gradient(to right, #2295b4, #07252d);
+    color: #cedaeb;
   }
   .card-body {
     padding: 30px 20px;
@@ -81,17 +97,5 @@ export default defineComponent({
   }
   .card-body a {
     cursor: pointer;
-  }
-  .loading {
-    display: center;
-    text-align: center;
-    font-weight: bolder;
-    color: #2c3e50;
-  }
-  .error {
-    display: center;
-    text-align: center;
-    font-weight: bolder;
-    color: #2c3e50;
   }
 </style>

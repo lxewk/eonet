@@ -1,5 +1,18 @@
 <template>
 	<div class="category">
+    <header>
+      <div class="introduction">
+        <p>
+          The curation of events is a significant component of the EONET system, and while the technical details are, to an extent, straight forward, the definition of what exactly constitutes an event is fluid and dares EONET to be constrained.
+        </p>
+        <p>
+          What are the contextual parameters of an event? What if one curator defines a specific wildfire in Idaho as a discrete event and another defines the summer wildfire season in the Pacific Northwest as a single event.
+        </p>
+        <p>
+          The developers of EONET are still thinking about these issues and how to best represent them within EONET. If you have ideas or suggestions, <a href="https://eonet.sci.gsfc.nasa.gov/contact">get in touch with EONET</a>
+        </p>
+      </div>
+    </header>
     <transition name="switch" mode="out-in" appear>
       <div v-if="error" class="error">{{ error }}</div>
       <div v-else-if="neonet_category.categories.length">
@@ -49,7 +62,11 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style>
+  .category {
+    width: 100%;
+    margin: 50px auto;
+  }
   .switch-enter-from,
   .switch-enter-to {
     opacity: 0;
@@ -62,7 +79,7 @@ export default defineComponent({
   }
   .switch-enter-active,
   .switch-leave-active {
-    transition: all 0.5s ease;
+    transition: all 0.6s ease;
   }
 
 </style>

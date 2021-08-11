@@ -4,7 +4,7 @@
 			<li v-for="categoryEntry in neonet_category.categories" :key="categoryEntry.id">
 				<h1>{{ categoryEntry.title }}</h1>
 				<div class="category-description">
-          <h3>Description *</h3>
+          <h3>Description</h3>
 					<p>{{ categoryEntry.description }}</p>
 				</div>			
 			</li>
@@ -35,11 +35,12 @@ export default defineComponent({
 	padding: 16px;
 	margin: 16px;
 	border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .category-list h1 {
 	margin: 0 0 10px;
 	text-transform: capitalize;
-	color: #39bf78;
+	color: #2295b4;
 }
 .category-description {
 	display: flex;
@@ -48,7 +49,3 @@ export default defineComponent({
 }
 
 </style>
-
-// The curation of events is a significant component of the EONET system,
-//  and while the technical details are, to an extent, straight forward, 
-// the definition of what exactly constitutes an event is fluid and daring us to be constrained.
