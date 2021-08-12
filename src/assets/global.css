@@ -25,6 +25,7 @@ button:hover {
 .introduction p {
   margin: auto;
   padding: 0 20px 0 10px;
+  letter-spacing: 0.3px;
 }
 
 a {

@@ -7,7 +7,7 @@ import Source from '../views/Sources/Source.vue'
 import EventDetail from '../views/Events/EventDetails.vue'
 import NotFound from '../components/NotFound.vue'
 import Sitemap from '../components/Sitemap.vue'
-import Search from '../components/Search.vue'
+import Search from '../views/Search.vue'
 
 
 const routes: Array<RouteRecordRaw> = [

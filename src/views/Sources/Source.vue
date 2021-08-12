@@ -66,6 +66,7 @@ export default defineComponent({
   }
   #source-intro {
     line-height: 1.4;
+    letter-spacing: 0.3px;
   }
   .source .src-detail a {
 		color: #5e17d1;

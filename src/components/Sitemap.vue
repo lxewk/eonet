@@ -10,7 +10,6 @@
         <a href="/random">Random Event</a>
         <a href="/curation">Curation</a>
         <a href="/search">Search</a>
-        <a href="#">Home - Title - Event details</a>
       </template>
     </Modal>
   </div>

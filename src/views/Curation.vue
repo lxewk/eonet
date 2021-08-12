@@ -87,7 +87,9 @@ export default defineComponent({
     cursor: none;
     font-size: 24px;
     padding: 16px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
   }
+  
   .link-curation {
     padding-left: 10px;
   }
