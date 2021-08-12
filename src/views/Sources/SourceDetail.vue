@@ -48,10 +48,6 @@ export default defineComponent({
 })
 </script>
 
-<style>
-  .src-detail li {
-    cursor: pointer;
-  }
-</style>
+
 
 

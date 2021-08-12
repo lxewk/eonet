@@ -16,26 +16,28 @@
     </header>
     <div v-if="error" class="error">{{ error }}</div>
     <div v-if="eonet_event.events.length">
-      <div class="btn-cnt">
-        <div class="dropdown">
-          <button class="dropbtn">sort by Category</button>
-          <div class="dropdown-content">
-            <span @click="handleClick('drought')">Drought</span>
-            <span @click="handleClick('dustHaze')">Dust And Haze</span>
-            <span @click="handleClick('earthquakes')">Earthquakes</span>
-            <span @click="handleClick('floods')">Floods</span>
-            <span @click="handleClick('landslides')">Landslides</span>
-            <span @click="handleClick('manmade')">Manmade</span>
-            <span @click="handleClick('seaLakeIce')">Sea and Lake Ice</span>
-            <span @click="handleClick('severeStorms')">Severe Storms</span>
-            <span @click="handleClick('snow')">Snow</span>
-            <span @click="handleClick('tempExtremes')">Temperature Extremes</span>
-            <span @click="handleClick('volcanoes')">Volcanoes</span>
-            <span @click="handleClick('waterColor')">Water Color</span>
-            <span @click="handleClick('wildfires')">Wildfires</span>
+      <transition name="home-btn" appear>
+        <div class="btn-cnt">
+          <div class="dropdown">
+            <button class="dropbtn">sort by Category</button>
+            <div class="dropdown-content">
+              <span @click="handleClick('drought')">Drought</span>
+              <span @click="handleClick('dustHaze')">Dust And Haze</span>
+              <span @click="handleClick('earthquakes')">Earthquakes</span>
+              <span @click="handleClick('floods')">Floods</span>
+              <span @click="handleClick('landslides')">Landslides</span>
+              <span @click="handleClick('manmade')">Manmade</span>
+              <span @click="handleClick('seaLakeIce')">Sea and Lake Ice</span>
+              <span @click="handleClick('severeStorms')">Severe Storms</span>
+              <span @click="handleClick('snow')">Snow</span>
+              <span @click="handleClick('tempExtremes')">Temperature Extremes</span>
+              <span @click="handleClick('volcanoes')">Volcanoes</span>
+              <span @click="handleClick('waterColor')">Water Color</span>
+              <span @click="handleClick('wildfires')">Wildfires</span>
+            </div>
           </div>
         </div>
-      </div>
+      </transition>
       <EventList 
         :eonet_event="eonet_event" 
         :sortTerm="sortTerm" 
@@ -142,6 +144,17 @@ export default defineComponent({
 
   .dropdown:hover .dropdown-content {display: block;}
 
-  
+  /* transition home-btn */
+  .home-btn-enter-from {
+  opacity: 0;
+  transform: scale(0.6);
+  }
+  .home-btn-enter-to {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .home-btn-enter-active {
+    transition: all 1s ease;
+  }
 
 </style>

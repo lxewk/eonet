@@ -72,11 +72,14 @@ export default defineComponent({
 		text-decoration: none;
 	}
   .source .src-detail a:hover {
-    color:#2c3e50;
+    color:#4505ac;
+    font-weight: bold;
   }
   .source .src-detail li {
     padding: 8px;
   }
+
+  /* sourceList transition */
   .sourceList-enter-from {
     opacity: 0;
     transform: scale(0.6);
@@ -86,8 +89,9 @@ export default defineComponent({
     transform: scale(1);
   }
   .sourceList-enter-active {
-    transition: all 0.6s ease;
+    transition: all 0.8s ease;
   }
+
   @media (max-width: 600px) {
     #source-header {
       height: 500px;

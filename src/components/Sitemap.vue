@@ -4,11 +4,13 @@
     <Modal theme="sitemap" @close="toggleModal">
       <h1>Sitemap</h1>
       <template v-slot:siteLinks>
-        <a href="#">Home</a>
-        <a href="#">Category</a>
-        <a href="#">Sources</a>
-        <a href="#">Random Event</a>
-        <a href="#">Worldview</a>
+        <a href="/">Home</a>
+        <a href="/category">Category</a>
+        <a href="/source">Sources</a>
+        <a href="/random">Random Event</a>
+        <a href="/curation">Curation</a>
+        <a href="/search">Search</a>
+        <a href="#">Home - Title - Event details</a>
       </template>
     </Modal>
   </div>

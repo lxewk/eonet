@@ -49,7 +49,7 @@ export default defineComponent({
     left: 10px;
     color: #cedaeb;
     background: linear-gradient(to right,#2295b4,#07252d) ;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
     margin: 5px;
     padding: 4px 4px 15px 4px;
     border-radius: 4px;

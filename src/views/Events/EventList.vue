@@ -100,6 +100,7 @@ export default defineComponent({
 	display: flex;
   flex-direction: column;
 }
+/* list transition */
 .list-enter-from {
   opacity: 0;
   transform: scale(0.6);
@@ -109,7 +110,7 @@ export default defineComponent({
   transform: scale(1);
 }
 .list-enter-active {
-  transition: all 0.6s ease;
+  transition: all 1s ease;
 }
 </style>
 
