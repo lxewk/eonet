@@ -1,24 +1,11 @@
-# eonet
+#EONET - Earth Observatory Natural Event Tracker
+###Prototype web service provided by *NASA*
 
-## Project setup
-```
-npm install
-```
+#####Front end test for DTT
+august 2021
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Framework : Vue 3 + TypeScript
+Editor : VScode
 
-### Compiles and minifies for production
-```
-npm run build
-```
+github : https://github.com/lxewk/eonet.git
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

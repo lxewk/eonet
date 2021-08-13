@@ -82,12 +82,18 @@ export default defineComponent({
 </script>
 
 <style>
+  .curation .introduction {
+    margin: 20px auto;
+  }
   #btn-curation {
     color: white;
     cursor: none;
     font-size: 24px;
     padding: 16px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+  }
+  .curation .introduction h5 {
+    padding-left: 10px;
   }
   
   .link-curation {

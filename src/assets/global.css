@@ -21,10 +21,13 @@ button:hover {
 .introduction {
   max-width: 960px;
   margin: auto;
+  border: 0px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.3);
 }
 .introduction p {
   margin: auto;
-  padding: 0 20px 0 10px;
+  padding: 5px 20px 5px 20px;
   letter-spacing: 0.3px;
 }
 

@@ -114,8 +114,11 @@ export default defineComponent({
     list-style-type: none;
   }
   .home .btn-cnt {
+    display: inline-block;
+    margin: 30px 0 0 0;
+    padding-right: 30px;
     text-align: right;
-    width: 90%;
+    width: 95%;
   } 
   .dropdown {
     position: relative;

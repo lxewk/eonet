@@ -64,8 +64,20 @@ export default defineComponent({
     width: 90%;
     margin: 50px auto;
   }
+  #source-header {
+    display: table-cell;
+  }
   #source-intro {
+    max-width: 960px;
+    margin: auto;
+    border: 0px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.3);
+  }
+  #source-intro p {
     line-height: 1.4;
+    margin: auto;
+    padding: 5px 20px 5px 20px;
     letter-spacing: 0.3px;
   }
   .source .src-detail a {

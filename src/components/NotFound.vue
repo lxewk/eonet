@@ -24,7 +24,7 @@ export default defineComponent({
   .notFound h2 {
     margin: 0 0 10px;
     text-transform: capitalize;
-    color: #228c53;
+    color: #2295b4;
   }
   .notFound h3 {
     color: #2c3e50;
